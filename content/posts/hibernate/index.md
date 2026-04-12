@@ -1,6 +1,6 @@
 ---
 date: 2026-04-03
-update: 2026-04-03
+update: 2026-04-12
 name: hibernate
 title: Archlinux 配置 S4 休眠
 draft: false
@@ -108,7 +108,34 @@ general {
 ```
 Hyprlock 配置直接使用 [官方示例](https://github.com/hyprwm/hyprlock/blob/main/assets/example.conf)。
 
+### 2026.04.12 更新
 
+前几天配开发环境的时候发现 N 卡驱动没有装，就给补了一下，结果今天唤醒的时候发现失败了，原因是 sddm 需要 nvidia 模块早期加载，但这会导致 resume 失败。折腾半天也没找到之前是怎么配的，然后我意识到一个问题，sddm 需求 nvidia 模块是因为用 N 卡渲染，但我又不在 Arch 上打游戏，能跑 CUDA 就行，渲染交给核显不就好。
 
+配置参数很简单，在 `/etc/modprobe.d` 下创建相关配置文件：
+```bash
+# /etc/modprobe.d/nvidia.conf
+options nvidia_drm modeset=0
+```
 
+确认一下显示器输出：
+```bash
+❯ lspci -vnn | grep VGA
+0000:00:02.0 VGA compatible controller [0300]: Intel Corporation Meteor Lake-P [Intel Arc Graphics] [8086:7d55] (rev 08) (prog-if 00 [VGA controller])
+0000:01:00.0 VGA compatible controller [0300]: NVIDIA Corporation AD107M [GeForce RTX 4060 Max-Q / Mobile] [10de:28a0] (rev a1) (prog-if 00 [VGA controller])
 
+❯ la /sys/class/drm/card*
+lrwxrwxrwx 1 root root 0  4月12日 21:31 /sys/class/drm/card0 -> ../../devices/pci0000:00/0000:00:01.0/0000:01:00.0/drm/card0
+lrwxrwxrwx 1 root root 0  4月12日 21:31 /sys/class/drm/card1 -> ../../devices/pci0000:00/0000:00:02.0/drm/card1
+lrwxrwxrwx 1 root root 0  4月12日 21:31 /sys/class/drm/card1-DP-1 -> ../../devices/pci0000:00/0000:00:02.0/drm/card1/card1-DP-1
+lrwxrwxrwx 1 root root 0  4月12日 21:31 /sys/class/drm/card1-DP-2 -> ../../devices/pci0000:00/0000:00:02.0/drm/card1/card1-DP-2
+lrwxrwxrwx 1 root root 0  4月12日 21:31 /sys/class/drm/card1-DP-3 -> ../../devices/pci0000:00/0000:00:02.0/drm/card1/card1-DP-3
+lrwxrwxrwx 1 root root 0  4月12日 21:31 /sys/class/drm/card1-DP-4 -> ../../devices/pci0000:00/0000:00:02.0/drm/card1/card1-DP-4
+```
+所有显示器输出都指向 Intel 核显，与预期一致。
+
+最后确认一下 CUDA 是否正常工作（更多是看 pytorch 是否正常）：
+```bash
+❯ python -c "import torch; print(f'{torch.cuda.is_available()=}')"
+torch.cuda.is_available()=True
+```
