@@ -2,7 +2,9 @@
 
 This is IRID's blog site.
 
-This site is deployed on [GitHub Pages](https://blog.cascade.moe) using [Hugo](https://gohugo.io).
+This site is deployed on [GitHub Pages](https://blog.yuime.moe) using [Hugo](https://gohugo.io).
+
+This site is migrating from GitHub Pages to VPS. The old repository is [here](https://github.com/ppq1024/ppq1024.github.io) and the new repository is [here](https://github.com/ppq1024/blog.yuime.moe).
 
 ## License
 ![](https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png)  
