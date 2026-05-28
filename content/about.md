@@ -32,6 +32,6 @@ title: 关于我
 
 ## 关于本站
 
-本站使用 [Hugo](https://gohugo.io/) 部署在 [GitHub Pages](https://pages.github.com/) 上，基本上~~复制自~~参考七碳的 [主页](https://cascade.moe/)，只进行了一些小修小补。
+本站使用 [Hugo](https://gohugo.io/) 部署在个人 VPS 上，基本上~~复制自~~参考七碳的 [主页](https://cascade.moe/)，只进行了一些小修小补。
 
 本站内容采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可。代码仓库以具体使用的开源协议为准。

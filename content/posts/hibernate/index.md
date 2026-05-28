@@ -1,6 +1,6 @@
 ---
 date: 2026-04-03
-update: 2026-04-12
+update: 2026-05-28
 name: hibernate
 title: Archlinux 配置 S4 休眠
 draft: false
@@ -35,7 +35,99 @@ NAME           TYPE      SIZE USED PRIO
 
 **创建交换分区**
 
-首先使用分区工具创建新分区，以我目前环境为例为 `/dev/nvme0n1p5`，然后对其进行格式化，然后挂载：
+首先使用分区工具创建新分区，以我目前环境为例为 `/dev/nvme0n1p5`，然后对其进行格式化并挂载。分区创建以我常用的 `fdisk` 为例：
+
+{{< notice note >}}
+具体操作其实我也记不住，但查看帮助信息是一个在linux下的好习惯，这里也贴一下。
+{{< /notice >}}
+
+{{< notice warning >}}
+尽量不要在有系统休眠时修改分区表。
+{{< /notice >}}
+
+```bash
+❯ sudo fdisk /dev/nvme0n1
+
+欢迎使用 fdisk (util-linux 2.42.1)。
+更改将停留在内存中，直到您决定将更改写入磁盘。
+使用写入命令前请三思。
+
+该磁盘目前正在使用 - 不建议您重新分区。
+推荐您卸载此磁盘上所有的文件系统，并关闭（swapoff）上面的交换分区。
+
+
+命令(输入 m 获取帮助)：m
+
+帮助：
+
+  GPT
+   M   进入 保护/混合 MBR
+
+  常规
+   d   删除分区
+   F   列出未分区的空闲区
+   l   列出已知分区类型
+   n   添加新分区
+   p   打印分区表
+   t   更改分区类型
+   v   检查分区表
+   i   打印某个分区的相关信息
+   e   调整分区大小
+   T   discard (trim) sectors
+
+  杂项
+   m   打印此菜单
+   x   更多功能(仅限专业人员)
+
+  脚本
+   I   从 sfdisk 脚本文件加载磁盘布局
+   O   将磁盘布局转储为 sfdisk 脚本文件
+
+  保存并退出
+   w   将分区表写入磁盘并退出
+   q   退出而不保存更改
+
+  新建空磁盘标签
+   g   新建一份 GPT 分区表
+   G   新建一份空 GPT (IRIX) 分区表
+   o   新建一份的空 DOS（MBR）分区表
+   s   新建一份空 Sun 分区表
+```
+
+首先确保有足够的剩余空间（为了示例我给旧 Swap 分区删了，~~不过没写入磁盘~~），没有的话可能需要先压缩旧分区。
+```bash
+命令(输入 m 获取帮助)：F
+未分区的空间 /dev/nvme0n1：64 GiB，68722695680 个字节，134224015 个扇区
+单元：扇区 / 1 * 512 = 512 字节
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+
+      起点       末尾      扇区  大小
+3638589440 3638591487      2048    1M
+3772807168 3907029134 134221967   64G
+```
+
+根据帮助信息使用 `n` 新建分区，参数什么看提示就好。
+```bash
+命令(输入 m 获取帮助)：n
+分区号 (5-128, 默认  5): 
+第一个扇区 (3638589440-3907029134, 默认 3772807168): 
+最后一个扇区，+/-sectors 或 +size{K,M,G,T,P} (3772807168-3907029134, 默认 3907028991): +64G
+
+创建了一个新分区 5，类型为“Linux filesystem”，大小为 64 GiB。
+```
+
+然后修改分区类型为 `Linux swap`，这里直接使用别名，所有类型信息可以通过 `l` 查看（太长就不贴了）。
+```bash
+命令(输入 m 获取帮助)：t
+分区号 (1-5, 默认  5): 
+分区类型或别名（输入 L 列出所有类型）：swap
+
+已将分区“Linux filesystem”的类型更改为“Linux swap”。
+```
+
+然后执行 `w` 写入分区表，我这边仅示例就 `q` 退出了。
+
+格式化和挂载：
 ```bash
 sudo mkswap /dev/nvme0n1p5
 sudo swapon /dev/nvme0n1p5
@@ -99,7 +191,7 @@ exec-once = hypridle
 bind = $mainMod, H, exec, sudo systemctl hibernate
 ```
 Hypridle 的配置文件如下:
-```bash
+```ini
 # ~/.config/hypr/hypridle.conf
 general {
     lock_cmd = pidof hyprlock || hyprlock
@@ -113,7 +205,7 @@ Hyprlock 配置直接使用 [官方示例](https://github.com/hyprwm/hyprlock/bl
 前几天配开发环境的时候发现 N 卡驱动没有装，就给补了一下，结果今天唤醒的时候发现失败了，原因是 sddm 需要 nvidia 模块早期加载，但这会导致 resume 失败。折腾半天也没找到之前是怎么配的，然后我意识到一个问题，sddm 需求 nvidia 模块是因为用 N 卡渲染，但我又不在 Arch 上打游戏，能跑 CUDA 就行，渲染交给核显不就好。
 
 配置参数很简单，在 `/etc/modprobe.d` 下创建相关配置文件：
-```bash
+```ini
 # /etc/modprobe.d/nvidia.conf
 options nvidia_drm modeset=0
 ```

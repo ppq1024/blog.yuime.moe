@@ -1,6 +1,6 @@
 ---
 date: 2026-03-22
-update: 2026-03-22
+update: 2026-05-28
 name: reinstall-arch
 title: 记一次重装 Archlinux 的经历
 draft: false
@@ -14,7 +14,7 @@ tags:
 
 事情的起因是在 Windows 下尝试 [WinBtrfs](https://github.com/maharmstone/btrfs)，看起来一切正常，而且 btrfs 分区可以正常写入。 嗯～～～不对！Archlinux 不是还在 S4 休眠吗，这怎么能写呢？火速重启换系统，Archlinux 可以正常唤醒，似乎一切还在掌握之中，关机换系统继续操作。
 
-不过就在敲下 reboot 后我发现了不对劲，这怎么卡住了呢（事后分析是 grub 尝试读取跟分区失败），进入 liveusb 紧急救援发现跟分区超级块没了，一番折腾后备份全盘镜像后重装系统吧。
+不过就在敲下 reboot 后我发现了不对劲，这怎么卡住了呢（事后分析是 grub 尝试读取根分区失败），进入 liveusb 紧急救援发现跟分区超级块没了，一番折腾后备份全盘镜像后重装系统吧。
 
 {{< notice note >}}
 这是一个悲惨的故事，告诉我们一定要做好充足的备份。
@@ -70,7 +70,7 @@ nvme1n1     259:8    0   1.8T  0 disk
 再次警告，这不是一份 Archlinux 安装教程，流程也不完整，所有命令不建议照抄。
 {{< /notice >}}
 ```bash
-pacstrap -K ./Arch base linux linux-firmware NetworkManager vim base-dev git man-db man-pages texinfo intel-ucode btrfs-progs grub efibootmgr
+pacstrap -K ./Arch base linux linux-firmware NetworkManager vim base-devel git man-db man-pages texinfo intel-ucode btrfs-progs grub efibootmgr
 ```
 {{< notice note >}}
 命令中的 `./Arch` 为实际的根分区挂载点，对应的绝对路径为 `/root/Arch`，wiki 上的 `/mnt` 我用于挂载 btrfs 根子卷而不是根分区（`@` 子卷）。
@@ -82,7 +82,7 @@ pacstrap -K ./Arch base linux linux-firmware NetworkManager vim base-dev git man
 
 *Linux 为什么需要图形界面呢？当然是可以开很多终端了。*
 
-这里用图形界面而不是桌面环境主要是还包括了窗口管理器（比如我现在用的 Hyprland）。其实我用过的图形界面还是比较少的，之前也就用过 Gnome 和 KDE。Gnome 还是因为早期用 Ubuntu，换成 Archlinux 后一开始用的 KDE，后来才换的 Hyprland（其实中间还浅尝了一些老旧的平埔式 WM，但我忘记叫什么了）。
+这里用图形界面而不是桌面环境主要是还包括了窗口管理器（比如我现在用的 Hyprland）。其实我用过的图形界面还是比较少的，之前也就用过 Gnome 和 KDE。Gnome 还是因为早期用 Ubuntu，换成 Archlinux 后一开始用的 KDE，后来才换的 Hyprland（其实中间还浅尝了一些老旧的平铺式 WM，但我忘记叫什么了）。
 
 因为之前的 Hyprland 是从 KDE 转过去的，导致系统中存在大量安装和配置残留，这次正好从头干净安装。需要的包大概就这些：
 ```bash
@@ -120,4 +120,4 @@ adwaita-qt5 和 adwaita-qt6 在 AUR 中。
 
 至于那一堆复杂的配置，找时间单独写一篇吧~~咕~~。
 
-其实是配置还没完善，开发环境也还没搭，找时间再补吧。
+前端时间 hyprland 配置还迁移到了 lua，确实值得单独写一下（Hyprland 这更新是真频繁啊，还经常导致旧配置失效）。
