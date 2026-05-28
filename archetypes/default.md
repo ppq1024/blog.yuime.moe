@@ -5,5 +5,5 @@ name:
 title: Title
 draft: true
 tags:
-enableGitalk: true
+enableGiscus: true
 ---

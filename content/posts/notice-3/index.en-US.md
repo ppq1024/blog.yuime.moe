@@ -1,5 +1,6 @@
 ---
 date: 2026-05-27
+expire: 2026-05-28
 name: notice
 title: Migration Notice - Notice-3
 draft: false

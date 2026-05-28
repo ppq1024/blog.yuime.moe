@@ -4,8 +4,6 @@ update: 2026-05-28
 name: hibernate
 title: Archlinux 配置 S4 休眠
 draft: false
-enableKatex: true
-enableGitalk: true
 tags:
     - Archlinux
 ---

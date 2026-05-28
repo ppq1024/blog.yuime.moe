@@ -4,8 +4,6 @@ update: 2026-05-28
 name: reinstall-arch
 title: 记一次重装 Archlinux 的经历
 draft: false
-enableKatex: true
-enableGitalk: true
 tags:
     - Archlinux
 ---

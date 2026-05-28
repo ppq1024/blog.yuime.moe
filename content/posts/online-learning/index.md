@@ -5,7 +5,6 @@ name: online-learning
 title: 在线学习与 FTRL 算法
 draft: false
 enableKatex: true
-enableGitalk: true
 tags:
     - 人工智能
     - 论文阅读
