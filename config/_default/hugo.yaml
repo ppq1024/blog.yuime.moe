@@ -32,18 +32,13 @@ params:
     - name: E-mail
       icon: mail
       url: mailto:ppq0x0400@outlook.com
-  gitalk:
-    clientID: Ov23li2Zw0KTzG3sZ7XW
-    repo: ppq1024.github.io
-    owner: ppq1024
-    admin: ppq1024
 languages:
   zh-CN:
-    languageCode: zh-CN
-    languageName: 中文-中国大陆
+    local: zh-CN
+    label: 中文-中国大陆
   en-US:
-    languageCode: en-US
-    languageName: English-US
+    local: en-US
+    label: English-US
 markup:
   goldmark:
     extensions:
