@@ -1,5 +1,6 @@
 ---
 date: 2026-05-27
+update: 2026-05-28
 name: notice
 title: 测试用 - Notice-4
 draft: false

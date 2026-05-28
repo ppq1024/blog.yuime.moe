@@ -8,3 +8,5 @@ resources/
 
 [Tt]emp/
 nginx-prefix
+
+deploy.sh
