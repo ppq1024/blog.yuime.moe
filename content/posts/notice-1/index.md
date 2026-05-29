@@ -1,7 +1,7 @@
 ---
 date: 2025-07-31
-update: 2025-08-02
-expire: 2025-08-09
+lastmod: 2025-08-02
+expiryDate: 2025-08-09
 name: notice
 title: 施工进度说明 - Notice-1
 draft: false

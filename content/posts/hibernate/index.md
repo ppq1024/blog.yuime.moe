@@ -1,6 +1,6 @@
 ---
 date: 2026-04-03
-update: 2026-05-28
+lastmod: 2026-05-28
 name: hibernate
 title: Archlinux 配置 S4 休眠
 draft: false

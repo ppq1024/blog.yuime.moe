@@ -1,6 +1,6 @@
 ---
 date: 2025-08-12
-update: 2025-09-25
+lastmod: 2025-09-25
 name: online-learning
 title: 在线学习与 FTRL 算法
 draft: false

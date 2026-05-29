@@ -1,6 +1,6 @@
 ---
 date: 2025-08-02
-update: 2026-05-28
+lastmod: 2026-05-28
 name: all-of-beginning
 title: 万恶之源 - Minecraft 联机中的网络问题
 draft: false

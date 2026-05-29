@@ -1,6 +1,6 @@
 ---
 date: 2025-07-31
-update: 2025-08-02
+lastmod: 2025-08-02
 expire: 2025-08-09
 name: notice
 title: Construction Progress Update - Notice-1

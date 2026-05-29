@@ -1,6 +1,6 @@
 ---
 date: 2025-08-03
-update: 2026-05-28
+lastmod: 2026-05-28
 name: dhcpd-on-orangepi
 title: 在香橙派上配置 dhcpd
 draft: false

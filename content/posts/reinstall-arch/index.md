@@ -1,6 +1,6 @@
 ---
 date: 2026-03-22
-update: 2026-05-28
+lastmod: 2026-05-28
 name: reinstall-arch
 title: 记一次重装 Archlinux 的经历
 draft: false

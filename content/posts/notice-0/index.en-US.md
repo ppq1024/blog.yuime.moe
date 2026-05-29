@@ -1,6 +1,6 @@
 ---
 date: 2025-07-30
-update: 2025-07-31
+lastmod: 2025-07-31
 expire: 2025-08-02
 name: notice
 title: Constructing - Notice-0

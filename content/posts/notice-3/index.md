@@ -1,6 +1,6 @@
 ---
 date: 2026-05-27
-expire: 2026-05-28
+expiryDate: 2026-05-28
 name: notice
 title: 迁移通知 - Notice-3
 draft: false
