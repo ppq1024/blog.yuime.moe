@@ -105,7 +105,7 @@ server {
     index index.html index.htm;
     
     location = /action/sync/blog {
-	if ($ssl_client_verify != "SUCCESS") {
+        if ($ssl_client_verify != "SUCCESS") {
             return 403;
         }
         proxy_pass http://[::1]:8000;
@@ -130,7 +130,6 @@ server {
     server_name service.yuime.moe;
     return 404; # managed by Certbot
 }
-
 ```
 
 然后将推送和部署流程整理为一个脚本：
