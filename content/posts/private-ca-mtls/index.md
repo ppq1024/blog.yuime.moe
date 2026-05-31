@@ -96,20 +96,18 @@ openssl pkey -in ppqarch.key >> ppqarch.pem
 openssl pkcs12 -export -in ppqarch.pem -out ppqarch.p12
 ```
 
-实际部署时三份私钥位于同一设备，更一般的情况参考一下流程：
+实际部署时三份私钥位于同一设备，更一般的情况参考以下流程：
 ```mermaid
 sequenceDiagram
     participant R as Root CA
     participant M as Middle CA
     participant C as Client
 
-
-
     Note over R: 阶段一：创建根 CA 证书
     R->>R: 生成根 CA 私钥和自签名证书
 
     Note over R, M: 阶段二：创建中间 CA 证书
-    M->>M: 生成中间 CA 私钥和根 CA 证书签署的证书请求
+    M->>M: 生成中间 CA 私钥和证书请求
     M->>R: 发送证书请求
     R->>R: 签署中间 CA 证书
     R->>M: 返回中间 CA 证书
